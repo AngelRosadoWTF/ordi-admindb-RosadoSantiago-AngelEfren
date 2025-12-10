@@ -1,0 +1,24 @@
+version: '3.8'
+services:
+  db:
+    image: mysql:8.0
+    container_name: ordi_mysql
+    env_file:
+      - ./env.list
+    secrets:
+      - mysql_root_password
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./mycnf.cnf:/etc/mysql/conf.d/mycnf.cnf:ro
+      - ./scripts:/scripts:ro
+    ports:
+      - "3307:3306"
+    command: --default-authentication-plugin=mysql_native_password
+    restart: unless-stopped
+
+secrets:
+  mysql_root_password:
+    file: ./secrets/mysql_root_password
+
+volumes:
+  db_data:

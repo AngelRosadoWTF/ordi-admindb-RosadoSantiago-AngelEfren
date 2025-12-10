@@ -1,0 +1,111 @@
+Table users {
+  user_id int [pk]
+  email varchar
+  name varchar
+  country varchar
+  birth_date date
+  created_at datetime
+  created_by varchar
+  updated_at datetime
+  updated_by varchar
+  active boolean
+}
+
+Table artists {
+  artist_id int [pk]
+  name varchar
+  country varchar
+  created_at datetime
+  created_by varchar
+  updated_at datetime
+  updated_by varchar
+  active boolean
+}
+
+Table genres {
+  genre_id int [pk]
+  name varchar
+  created_at datetime
+  created_by varchar
+  updated_at datetime
+  updated_by varchar
+  active boolean
+}
+
+Table albums {
+  album_id int [pk]
+  artist_id int [ref: > artists.artist_id]
+  title varchar
+  release_date date
+  cover_url varchar
+  genre_id int [ref: > genres.genre_id]
+  created_at datetime
+  created_by varchar
+  updated_at datetime
+  updated_by varchar
+  active boolean
+}
+
+Table songs {
+  song_id int [pk]
+  album_id int [ref: > albums.album_id]
+  artist_id int [ref: > artists.artist_id]
+  title varchar
+  duration_seconds int
+  is_public boolean
+  created_at datetime
+  created_by varchar
+  updated_at datetime
+  updated_by varchar
+  active boolean
+}
+
+Table playlists {
+  playlist_id int [pk]
+  user_id int [ref: > users.user_id]
+  name varchar
+  created_at datetime
+  created_by varchar
+  updated_at datetime
+  updated_by varchar
+  active boolean
+}
+
+Table playlist_tracks {
+  id int [pk]
+  playlist_id int [ref: > playlists.playlist_id]
+  song_id int [ref: > songs.song_id]
+  track_order int
+  created_at datetime
+  created_by varchar
+  updated_at datetime
+  updated_by varchar
+  active boolean
+}
+
+Table listens {
+  listen_id int [pk]
+  user_id int [ref: > users.user_id]
+  song_id int [ref: > songs.song_id]
+  listened_at datetime
+  duration_listened_seconds int
+  created_at datetime
+  created_by varchar
+  updated_at datetime
+  updated_by varchar
+  active boolean
+}
+
+Table subscriptions {
+  subscription_id int [pk]
+  user_id int [ref: > users.user_id]
+  plan varchar
+  start_date date
+  end_date date
+  price decimal
+  created_at datetime
+  created_by varchar
+  updated_at datetime
+  updated_by varchar
+  active boolean
+}
